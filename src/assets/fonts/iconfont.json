@@ -1,0 +1,23 @@
+{
+  "id": "3633242",
+  "name": "vue-shop",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "E-commerce",
+  "glyphs": [
+    {
+      "icon_id": "517496",
+      "name": "user",
+      "font_class": "custom-user",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "11488087",
+      "name": "password",
+      "font_class": "password",
+      "unicode": "e75b",
+      "unicode_decimal": 59227
+    }
+  ]
+}
