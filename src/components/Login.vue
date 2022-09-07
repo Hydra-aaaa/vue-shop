@@ -53,6 +53,7 @@ export default{
         // 保存token, 跳转页面
         window.sessionStorage.setItem('token', data.data.token);
         this.$router.push('/home')
+        
       })
     },
     Reset(formName){

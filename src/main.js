@@ -9,6 +9,12 @@ import axios from 'axios'
 
 // 配置请求根路径
 axios.defaults.baseURL = 'http://139.196.151.140:8889/api/private/v1/';
+
+// 发请求前进行token认证
+axios.interceptors.request.use(config => {
+  config.headers.Authorization = window.sessionStorage.getItem('token');
+  return config;
+})
 // 在vue原型中绑定axios
 Vue.prototype.$http = axios;
 
