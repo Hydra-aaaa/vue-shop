@@ -8,7 +8,7 @@ import '@/assets/fonts/iconfont.css'
 import axios from 'axios'
 
 // 配置请求根路径
-axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/';
+axios.defaults.baseURL = 'http://139.196.151.140:8889/api/private/v1/';
 // 在vue原型中绑定axios
 Vue.prototype.$http = axios;
 
