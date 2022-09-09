@@ -1,12 +1,12 @@
 <template>
   <div class="HomePage">
-    <div class="header">
+    <el-header class="header">
       <img src="@/assets/logo.png" alt="">
       <div class="title">电商后台管理系统</div>
       <el-button class="btn" @click="exit" type="info">退出</el-button>
-    </div>
-    <div class="aside">
-      <el-aside :width="toggle ? '64px' : '200px'">
+    </el-header>
+    <el-container>
+      <el-aside :width="isCollapse ? '64px' : '200px'" :collapse="isCollapse">
         <div class="toggleBtn" @click="changeToggle">|||</div>
         <el-menu 
           class="menu"
@@ -14,15 +14,24 @@
           background-color="#333744"
           text-color="#fff"
           active-text-color="#409EFF"
-          :collapse-transition="false">
-          <el-submenu index="1">
-            
+          :collapse-transition="true"
+          unique-opened>
+          <el-submenu :index="(item.id.toString())" v-for="(item, index) in menulist" :key=item.id>
+            <template slot="title">
+              <i :class="objIcon[item.id]"></i>
+              <span>{{item.authName}}</span>
+            </template>
+            <el-menu-item v-for="(subItem, index) in item.children" :key="subItem.id">
+              <template slot="title">
+                <i class="el-icon-menu"></i>
+                <span>{{subItem.authName}}</span>
+              </template>
+            </el-menu-item>
           </el-submenu>
         </el-menu>
       </el-aside>
-      
-    </div>
-    <div class="Main">{{}}</div>
+    </el-container>
+    <div class="Main"></div>
   </div>
 </template>
 <script>
@@ -32,7 +41,14 @@ export default {
   data(){
     return {
       menulist: [],
-      toggle: false
+      isCollapse: false,
+      objIcon: {
+        '125': 'iconfont icon-user',
+        '103': 'iconfont icon-tijikongjian',
+        '101': 'iconfont icon-shangpin',
+        '102': 'iconfont icon-danju',
+        '145': 'iconfont icon-baobiao'
+      }
     }
   },
   created(){
@@ -44,25 +60,27 @@ export default {
       this.$router.push('/');
     },
     async getMenuList(){
-      console.log(window.sessionStorage.getItem('token'));
       const { data: res } = await this.$http.get('menus');
       console.log(res);
       this.menulist = res.data;
     },
     changeToggle(){
-      this.toggle = !this.toggle;
-      console.log(this.toggle);
+      this.isCollapse = !this.isCollapse;
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-.header{
+.HomePage{
+  height: 100%;
+}
+.el-header{
   color: #fff;
   height: 60px;
   background-color: #373d41;
   overflow: hidden;
+  padding: 0;
   img{
     float: left;
     width: 65px;
@@ -76,9 +94,16 @@ export default {
     margin: 10px 15px 0 0;
   }
 }
-.menu {
-  width: 200px;
-  min-height: 200px;
+.el-menu {
+  height: 100%;
+  border-right: none;
+}
+.el-container{
+  height: calc(100vh - 60px);
+}
+.el-aside{
+  height: 100%;
+  overflow: hidden;
 }
 .toggleBtn{
   color: #fff;
@@ -88,5 +113,8 @@ export default {
   background-color: #4a5064;
   letter-spacing: .2rem;
   cursor: pointer;
+}
+.iconfont{
+  margin-right: 10px;
 }
 </style>
