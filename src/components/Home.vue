@@ -7,6 +7,7 @@
     </div>
     <div class="aside">
       <el-aside>
+        <div class="toggle" @click="changeToggle" :class="{'width': toggle ? '64px' : '200px'}">| | |</div>
         <el-menu 
           class="menu"
           mode="vertical"
@@ -14,14 +15,14 @@
           text-color="#fff"
           active-text-color="#409EFF"
           :collapse-transition="false">
-          <el-submenu>
-            导航一
+          <el-submenu index="1">
+            
           </el-submenu>
         </el-menu>
       </el-aside>
       
     </div>
-    <div class="Main"></div>
+    <div class="Main">{{}}</div>
   </div>
 </template>
 <script>
@@ -30,7 +31,8 @@ export default {
   name: 'Home',
   data(){
     return {
-      menulist: []
+      menulist: [],
+      toggle: false
     }
   },
   created(){
@@ -45,6 +47,10 @@ export default {
       console.log(window.sessionStorage.getItem('token'));
       const { data: res } = await this.$http.get('menus');
       console.log(res);
+      this.menulist = res.data;
+    },
+    changeToggle(){
+      this.toggle = !this.toggle;
     }
   }
 }
@@ -72,5 +78,12 @@ export default {
 .menu {
   width: 200px;
   min-height: 200px;
+}
+.toggle{
+  color: #fff;
+  width: 200px;
+  text-align: center;
+  background-color: #333744;
+  cursor: pointer;
 }
 </style>
