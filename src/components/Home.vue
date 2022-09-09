@@ -6,8 +6,8 @@
       <el-button class="btn" @click="exit" type="info">退出</el-button>
     </div>
     <div class="aside">
-      <el-aside>
-        <div class="toggle" @click="changeToggle" :class="{'width': toggle ? '64px' : '200px'}">| | |</div>
+      <el-aside :width="toggle ? '64px' : '200px'">
+        <div class="toggleBtn" @click="changeToggle">|||</div>
         <el-menu 
           class="menu"
           mode="vertical"
@@ -51,6 +51,7 @@ export default {
     },
     changeToggle(){
       this.toggle = !this.toggle;
+      console.log(this.toggle);
     }
   }
 }
@@ -79,11 +80,13 @@ export default {
   width: 200px;
   min-height: 200px;
 }
-.toggle{
+.toggleBtn{
   color: #fff;
-  width: 200px;
+  font-size: 10px;
+  line-height: 24px;
   text-align: center;
-  background-color: #333744;
+  background-color: #4a5064;
+  letter-spacing: .2rem;
   cursor: pointer;
 }
 </style>
